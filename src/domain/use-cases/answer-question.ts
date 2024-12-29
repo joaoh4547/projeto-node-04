@@ -22,6 +22,7 @@ export class AnswerQuestionUseCase {
       authorId: new UniqueEntityId(instructorId),
       questionId: new UniqueEntityId(questionId),
     })
+    
     await this.answersRepository.create(answer);
     return { answer };
   }
