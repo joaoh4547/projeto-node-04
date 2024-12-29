@@ -14,16 +14,16 @@ export interface AnswerQuestionUseCaseResult {
 
 export class AnswerQuestionUseCase {
 
-  constructor(private answersRepository: AnswersRepository) { }
+    constructor(private answersRepository: AnswersRepository) { }
 
-  async handle({ instructorId, questionId, content }: AnswerQuestionUseCaseInputParams): Promise<AnswerQuestionUseCaseResult> {
-    const answer = Answer.create({
-      content,
-      authorId: new UniqueEntityId(instructorId),
-      questionId: new UniqueEntityId(questionId),
-    })
+    async handle({ instructorId, questionId, content }: AnswerQuestionUseCaseInputParams): Promise<AnswerQuestionUseCaseResult> {
+        const answer = Answer.create({
+            content,
+            authorId: new UniqueEntityId(instructorId),
+            questionId: new UniqueEntityId(questionId),
+        });
     
-    await this.answersRepository.create(answer);
-    return { answer };
-  }
+        await this.answersRepository.create(answer);
+        return { answer };
+    }
 }
