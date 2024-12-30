@@ -13,10 +13,11 @@ describe("Get Question By Slug Use Case", () => {
     });
 
     it("should be able to get a question by its slug", async () => {
-        
-        await  questionsRepository.create(makeQuestion({
+        const createQuestion = makeQuestion({
             slug: Slug.create("title-test")
-        }));
+        });
+        await  questionsRepository.create(createQuestion);
+        
         const {question} = await sut.handle({slug: "title-test"});
         expect(question.id).toBeTruthy();
     });
