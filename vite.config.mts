@@ -5,6 +5,9 @@ export default defineConfig({
         tsConfigPaths()
     ],
     test:{
-        globals: true
+        globals: true,
+        coverage:{
+            all: false,
+        }
     }
 });

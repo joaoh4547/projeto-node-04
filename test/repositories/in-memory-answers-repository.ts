@@ -15,4 +15,9 @@ export class InMemoryAnswersRepository implements AnswersRepository {
     async findById(id: string) {
         return this.answers.find(answer => answer.id.toString() === id) || null;
     }
+
+    async save(answer: Answer) {
+        const answerIndex = this.answers.findIndex(a => a.id === answer.id);
+        this.answers[answerIndex] = answer;
+    }
 }
