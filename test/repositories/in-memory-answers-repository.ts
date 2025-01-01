@@ -8,4 +8,11 @@ export class InMemoryAnswersRepository implements AnswersRepository {
         this.answers.push(answer);
     }
    
+    async delete(answer: Answer){
+        this.answers = this.answers.filter(a => a.id !== answer.id);
+    }
+
+    async findById(id: string) {
+        return this.answers.find(answer => answer.id.toString() === id) || null;
+    }
 }
