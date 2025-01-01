@@ -7,4 +7,12 @@ export class InMemoryQuestionsCommentsRepository implements QuestionsCommentsRep
     async create(questionComment: QuestionComment) {
         this.comments.push(questionComment);
     }
+
+    async findById(id: string) {
+        return this.comments.find(comment => comment.id.toString() === id) || null;
+    }
+
+    async delete(questionComment: QuestionComment) {
+        this.comments = this.comments.filter(c => c.id !== questionComment.id);
+    }
 }
