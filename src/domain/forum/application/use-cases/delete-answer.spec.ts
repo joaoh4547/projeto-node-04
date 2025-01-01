@@ -14,7 +14,6 @@ describe("Delete Answer Use Case", () => {
 
     it("should to able to delete a answer", async () => {
         const newAnswer = makeAnswer({authorId: new UniqueEntityId("2")}, new UniqueEntityId("1"));
-        console.log(newAnswer);
         await answersRepository.create(newAnswer);
         await sut.handle({answerId: newAnswer.id.toString(),authorId: "2"});
 

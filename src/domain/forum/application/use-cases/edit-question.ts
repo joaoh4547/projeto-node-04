@@ -1,0 +1,35 @@
+
+import { QuestionsRepository } from "../repositories/questions-repository";
+
+export interface EditQuestionUseCaseInputParams {
+  questionId: string;
+  authorId: string;
+  title: string;
+  content: string;
+}
+
+export interface EditQuestionUseCaseResult {
+}
+
+export class EditQuestionUseCase {
+
+    constructor(private questionsRepository: QuestionsRepository) { }
+
+    async handle({ questionId,authorId,title,content }: EditQuestionUseCaseInputParams): Promise<EditQuestionUseCaseResult> {
+        const question = await this.questionsRepository.findById(questionId);
+
+        if(!question) {
+            throw new Error("Question not found.");
+        }
+
+        if(authorId !== question.authorId.toString()) {
+            throw new Error("Not Allowed.");
+        }
+
+        question.title = title;
+        question.content = content;
+
+        await this.questionsRepository.save(question);
+        return {  };
+    }
+}
