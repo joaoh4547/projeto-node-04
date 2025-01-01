@@ -1,3 +1,4 @@
+import { PaginationParams } from "@/core/repositories/pagination-params";
 import { QuestionsRepository } from "@/domain/forum/application/repositories/questions-repository";
 import { Question } from "@/domain/forum/enterprise/entities/question";
 
@@ -13,11 +14,11 @@ export class InMemoryQuestionsRepository implements QuestionsRepository {
     }
 
     async findById(id: string) {
-        return this.questions.find(question => question.id.toString() === id) || null;  
+        return this.questions.find(question => question.id.toString() === id) || null;
     }
 
     async delete(question: Question) {
-        this.questions = this.questions.filter(q => q.id!== question.id);
+        this.questions = this.questions.filter(q => q.id !== question.id);
     }
 
     async save(question: Question) {
@@ -25,5 +26,12 @@ export class InMemoryQuestionsRepository implements QuestionsRepository {
         this.questions[questionIndex] = question;
     }
 
-  
+    async findManyRecent({ page }: PaginationParams) {
+        const PAGE_SIZE = 20;
+        return this.questions.sort((a, b) => {
+            return b.createdAt.getTime() - a.createdAt.getTime();
+        }).slice((page - 1) * PAGE_SIZE, page * PAGE_SIZE);
+    }
+
+
 }
