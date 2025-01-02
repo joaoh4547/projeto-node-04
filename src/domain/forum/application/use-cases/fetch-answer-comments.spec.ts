@@ -19,7 +19,7 @@ describe("Fetch Answers Answers Use Case", () => {
         await answersCommentsRepository.create(makeAnswerComment());
 
         const { comments } = await sut.handle({answerId: "1", page: 1});
-        expect(comments).toHaveLength(4);
+        expect(comments).toHaveLength(4); 
 
     });
 
