@@ -17,8 +17,10 @@ describe("Fetch Questions Comments Use Case", () => {
         await commentsRepository.create(makeQuestionComment());
         await commentsRepository.create(makeQuestionComment());
 
-        const { comments } = await sut.handle({questionId: "1", page: 1});
-        expect(comments).toHaveLength(4);
+        const result = await sut.handle({questionId: "1", page: 1});
+
+        expect(result.isRight()).toBe(true);
+        expect(result.value?.comments).toHaveLength(4);
 
     });
 
@@ -27,8 +29,10 @@ describe("Fetch Questions Comments Use Case", () => {
         for(let i = 0; i < 22; i++){
             await commentsRepository.create(makeQuestionComment());
         }
-        const { comments } = await sut.handle({questionId: "1", page: 2});
-        expect(comments).toHaveLength(2);
+        const result = await sut.handle({questionId: "1", page: 2});
+
+        expect(result.isRight()).toBe(true);
+        expect(result.value?.comments).toHaveLength(2);
     });
 
 

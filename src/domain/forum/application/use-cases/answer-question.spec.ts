@@ -13,13 +13,13 @@ describe("Answer Use Case", () => {
     });
 
     it("should be able to create an answer", async () => {
-        const {answer} = await sut.handle({
+        const result = await sut.handle({
             instructorId: "1",
             questionId: "1",
             content: "Content"
-        });
-        expect(answer.id).toBeTruthy();
-        expect(answersRepository.answers[0].id).toEqual(answer.id);
+        }); 
+        expect(result.isRight()).toBe(true);
+        expect(answersRepository.answers[0]).toEqual(result.value?.answer);
     });
 
 });

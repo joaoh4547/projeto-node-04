@@ -23,7 +23,7 @@ export class ChooseQuestionBestAnswerUseCase {
         const answer = await this.answersRepository.findById(answerId);
 
         if (!answer) {
-            throw new Error("Answer not found.");
+            return left(new ResourceNotFoundError());
         }
 
         const question = await this.questionsRepository.findById(answer.questionId.toString());

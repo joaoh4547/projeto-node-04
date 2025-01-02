@@ -18,8 +18,10 @@ describe("Fetch Answers Answers Use Case", () => {
         await answersCommentsRepository.create(makeAnswerComment());
         await answersCommentsRepository.create(makeAnswerComment());
 
-        const { comments } = await sut.handle({answerId: "1", page: 1});
-        expect(comments).toHaveLength(4); 
+        const result = await sut.handle({answerId: "1", page: 1});
+
+        expect(result.isRight()).toBe(true);
+        expect(result.value?.comments).toHaveLength(4); 
 
     });
 
@@ -28,8 +30,10 @@ describe("Fetch Answers Answers Use Case", () => {
         for(let i = 0; i < 22; i++){
             await answersCommentsRepository.create(makeAnswerComment());
         }
-        const { comments } = await sut.handle({answerId: "1", page: 2});
-        expect(comments).toHaveLength(2);
+        const result = await sut.handle({answerId: "1", page: 2});
+
+        expect(result.isRight()).toBe(true);
+        expect(result.value?.comments).toHaveLength(2);
     });
 
 

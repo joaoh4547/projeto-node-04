@@ -17,8 +17,10 @@ describe("Fetch  Questions Answers Use Case", () => {
         await answersRepository.create(makeAnswer());
         await answersRepository.create(makeAnswer());
 
-        const { answers } = await sut.handle({questionId: "1", page: 1});
-        expect(answers).toHaveLength(4);
+        const result  = await sut.handle({questionId: "1", page: 1});
+
+        expect(result.isRight()).toBe(true);
+        expect(result.value?.answers).toHaveLength(4);
 
     });
 
@@ -27,8 +29,9 @@ describe("Fetch  Questions Answers Use Case", () => {
         for(let i = 0; i < 22; i++){
             await answersRepository.create(makeAnswer());
         }
-        const { answers } = await sut.handle({questionId: "1", page: 2});
-        expect(answers).toHaveLength(2);
+        const result = await sut.handle({questionId: "1", page: 2});
+        expect(result.isRight()).toBe(true);
+        expect(result.value?.answers).toHaveLength(2);
     });
 
 

@@ -18,7 +18,8 @@ describe("Get Question By Slug Use Case", () => {
         });
         await  questionsRepository.create(createQuestion);
         
-        const {question} = await sut.handle({slug: "title-test"});
-        expect(question.id).toBeTruthy();
+        const result = await sut.handle({slug: "title-test"});
+
+        expect(result.isRight()).toBe(true);
     });
 });

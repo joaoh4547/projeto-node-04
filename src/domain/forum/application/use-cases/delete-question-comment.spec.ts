@@ -1,6 +1,7 @@
 import { makeQuestionComment } from "test/factories/make-question-comment";
 import { InMemoryQuestionsCommentsRepository } from "test/repositories/in-memory-question-comments-repository";
 import { DeleteQuestionCommentUseCase } from "./delete-question-comment";
+import { NotAllowedError } from "./errors/not-allowed-error";
 
 let questionCommentsRepository: InMemoryQuestionsCommentsRepository;
 let sut: DeleteQuestionCommentUseCase;
@@ -32,12 +33,13 @@ describe("Delete Question Comment Use Case", () => {
         const newQuestion = makeQuestionComment();
         await questionCommentsRepository.create(newQuestion);
 
-        await expect(() =>{
-            return   sut.handle({
-                authorId: "2",
-                questionCommentId: newQuestion.id.toString()
-            });
-        }).rejects.toBeInstanceOf(Error);
+        const result = await sut.handle({
+            authorId: "2",
+            questionCommentId: newQuestion.id.toString()
+        });
+
+        expect(result.isLeft()).toBe(true);
+        expect(result.value).toBeInstanceOf(NotAllowedError);
     });
 
   

@@ -13,9 +13,9 @@ describe("Create Question Use Case", () => {
     });
 
     it("should be able to create a question", async () => {
-        const {question} = await sut.handle({authorId: "1", title: "Title", content: "Content"});
-        expect(question.id).toBeTruthy();
-        expect(questionsRepository.questions[0].id).toEqual(question.id);
+        const result = await sut.handle({authorId: "1", title: "Title", content: "Content"});
+        expect(result.isRight()).toBe(true);
+        expect(questionsRepository.questions[0]).toEqual(result.value?.question);
     });
 
 });
