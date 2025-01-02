@@ -17,8 +17,8 @@ describe("Create Question Use Case", () => {
         const result = await sut.handle({ authorId: "1", title: "Title", content: "Content", attachmentsIds: ["1", "2"] });
         expect(result.isRight()).toBe(true);
         expect(questionsRepository.questions[0]).toEqual(result.value?.question);
-        expect(questionsRepository.questions[0].attachments).toHaveLength(2);
-        expect(questionsRepository.questions[0].attachments).toEqual([
+        expect(questionsRepository.questions[0].attachments.currentItems).toHaveLength(2);
+        expect(questionsRepository.questions[0].attachments.currentItems).toEqual([
             expect.objectContaining({ attachmentId: new UniqueEntityId("1") }),
             expect.objectContaining({ attachmentId: new UniqueEntityId("2") })
         ]);

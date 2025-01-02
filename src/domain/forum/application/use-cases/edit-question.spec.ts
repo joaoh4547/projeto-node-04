@@ -1,16 +1,19 @@
 import { UniqueEntityId } from "@/core/entities/value-objects/unique-entity-id";
 import { makeQuestion } from "test/factories/make-questions";
+import { InMemoryQuestionAttachmentsRepository } from "test/repositories/in-memory-question-attachments-repository";
 import { InMemoryQuestionsRepository } from "test/repositories/in-memory-questions-repository";
 import { EditQuestionUseCase } from "./edit-question";
 import { NotAllowedError } from "./errors/not-allowed-error";
 
 let sut: EditQuestionUseCase;
 let questionsRepository: InMemoryQuestionsRepository;
+let questionAttachmentsRepository: InMemoryQuestionAttachmentsRepository;
 describe("Edit Question Use Case", () => {
 
     beforeEach(() => {
         questionsRepository = new InMemoryQuestionsRepository();
-        sut = new EditQuestionUseCase(questionsRepository);
+        questionAttachmentsRepository = new InMemoryQuestionAttachmentsRepository();
+        sut = new EditQuestionUseCase(questionsRepository,questionAttachmentsRepository);
     });
 
     it("should to able to edit a question", async () => {
@@ -20,7 +23,8 @@ describe("Edit Question Use Case", () => {
             questionId: newQuestion.id.toString(),
             authorId: "2",
             title: "New Title", 
-            content: "New Content"
+            content: "New Content",
+            attachmentsIds: []
         });
 
         expect(questionsRepository.questions[0]).toMatchObject({
@@ -39,7 +43,8 @@ describe("Edit Question Use Case", () => {
             questionId: newQuestion.id.toString(),
             authorId: "4",
             title: "New Title",
-            content: "New Content"
+            content: "New Content",
+            attachmentsIds: []
         });
        
 
