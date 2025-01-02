@@ -1,4 +1,5 @@
 
+import { Either, right } from "@/core/either";
 import { UniqueEntityId } from "@/core/entities/value-objects/unique-entity-id";
 import { Question } from "../../enterprise/entities/question";
 import { QuestionsRepository } from "../repositories/questions-repository";
@@ -9,9 +10,9 @@ export interface CreateQuestionUseCaseInputParams {
   content: string;
 }
 
-export interface CreateQuestionUseCaseResult {
+export type CreateQuestionUseCaseResult = Either<null, {
   question: Question
-}
+}>
 
 export class CreateQuestionUseCase {
 
@@ -20,6 +21,6 @@ export class CreateQuestionUseCase {
     async handle({ authorId, content, title }: CreateQuestionUseCaseInputParams): Promise<CreateQuestionUseCaseResult> {
         const question = Question.create({ authorId: new UniqueEntityId(authorId), content, title });
         await this.questionsRepository.create(question);
-        return { question };
+        return right({ question });
     }
 }
