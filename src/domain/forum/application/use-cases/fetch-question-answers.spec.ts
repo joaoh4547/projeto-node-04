@@ -1,4 +1,5 @@
 import { makeAnswer } from "test/factories/make-answers";
+import { InMemoryAnswerAttachmentsRepository } from "test/repositories/in-memory-answer-attachments-repository";
 import { InMemoryAnswersRepository } from "test/repositories/in-memory-answers-repository";
 import { FetchQuestionsAnswersUseCase } from "./fetch-question-answers";
 
@@ -7,7 +8,7 @@ let sut: FetchQuestionsAnswersUseCase;
 
 describe("Fetch  Questions Answers Use Case", () => {
     beforeEach(() => {
-        answersRepository = new InMemoryAnswersRepository();
+        answersRepository = new InMemoryAnswersRepository(new InMemoryAnswerAttachmentsRepository());
         sut = new FetchQuestionsAnswersUseCase(answersRepository);
     });
 

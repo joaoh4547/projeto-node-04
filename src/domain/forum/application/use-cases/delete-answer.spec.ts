@@ -1,24 +1,41 @@
 import { UniqueEntityId } from "@/core/entities/value-objects/unique-entity-id";
+import { makeAnswerAttachment } from "test/factories/make-answer-attachment";
 import { makeAnswer } from "test/factories/make-answers";
+import { InMemoryAnswerAttachmentsRepository } from "test/repositories/in-memory-answer-attachments-repository";
 import { InMemoryAnswersRepository } from "test/repositories/in-memory-answers-repository";
 import { DeleteAnswerUseCase } from "./delete-answer";
 import { NotAllowedError } from "./errors/not-allowed-error";
 
 let sut: DeleteAnswerUseCase;
 let answersRepository: InMemoryAnswersRepository; 
+let answerAttachmentsRepository: InMemoryAnswerAttachmentsRepository;
 describe("Delete Answer Use Case", () => {
 
     beforeEach(() => {
-        answersRepository = new InMemoryAnswersRepository();
+        answerAttachmentsRepository = new InMemoryAnswerAttachmentsRepository();
+        answersRepository = new InMemoryAnswersRepository(answerAttachmentsRepository);
         sut = new DeleteAnswerUseCase(answersRepository);
     });
 
     it("should to able to delete a answer", async () => {
         const newAnswer = makeAnswer({authorId: new UniqueEntityId("2")}, new UniqueEntityId("1"));
         await answersRepository.create(newAnswer);
+
+        answerAttachmentsRepository.attachments.push(
+            makeAnswerAttachment({
+                attachmentId: new UniqueEntityId("1"),
+                answerId: newAnswer.id
+            }),
+            makeAnswerAttachment({
+                attachmentId: new UniqueEntityId("2"),
+                answerId: newAnswer.id
+            }),
+        );
+
         await sut.handle({answerId: newAnswer.id.toString(),authorId: "2"});
 
         expect(answersRepository.answers).toHaveLength(0);
+        expect(answerAttachmentsRepository.attachments).toHaveLength(0);
     });
 
 
