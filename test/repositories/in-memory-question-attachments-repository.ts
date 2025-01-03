@@ -7,4 +7,8 @@ export class InMemoryQuestionAttachmentsRepository implements QuestionAttachment
     async findManyByQuestionId(questionId: string) {
         return this.attachments.filter(attachment => attachment.questionId.toString() === questionId);
     }
+
+    async deleteManyByQuestionId(questionId: string) {
+        this.attachments = this.attachments.filter(attachment => attachment.questionId.toString() !== questionId);
+    }
 }
