@@ -1,10 +1,10 @@
 import { UniqueEntityId } from "@/core/entities/value-objects/unique-entity-id";
+import { NotAllowedError } from "@/core/errors/not-allowed-error";
 import { makeQuestionAttachment } from "test/factories/make-question-attachment";
 import { makeQuestion } from "test/factories/make-questions";
 import { InMemoryQuestionAttachmentsRepository } from "test/repositories/in-memory-question-attachments-repository";
 import { InMemoryQuestionsRepository } from "test/repositories/in-memory-questions-repository";
 import { DeleteQuestionUseCase } from "./delete-question";
-import { NotAllowedError } from "./errors/not-allowed-error";
 
 let sut: DeleteQuestionUseCase;
 let questionsRepository: InMemoryQuestionsRepository; 

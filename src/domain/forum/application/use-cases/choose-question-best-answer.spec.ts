@@ -1,4 +1,5 @@
 import { UniqueEntityId } from "@/core/entities/value-objects/unique-entity-id";
+import { NotAllowedError } from "@/core/errors/not-allowed-error";
 import { makeAnswer } from "test/factories/make-answers";
 import { makeQuestion } from "test/factories/make-questions";
 import { InMemoryAnswerAttachmentsRepository } from "test/repositories/in-memory-answer-attachments-repository";
@@ -6,7 +7,6 @@ import { InMemoryAnswersRepository } from "test/repositories/in-memory-answers-r
 import { InMemoryQuestionAttachmentsRepository } from "test/repositories/in-memory-question-attachments-repository";
 import { InMemoryQuestionsRepository } from "test/repositories/in-memory-questions-repository";
 import { ChooseQuestionBestAnswerUseCase } from "./choose-question-best-answer";
-import { NotAllowedError } from "./errors/not-allowed-error";
 
 let questionsRepository: InMemoryQuestionsRepository;
 let answersRepository: InMemoryAnswersRepository;

@@ -1,10 +1,10 @@
 
 import { Either, left, right } from "@/core/either";
 import { UniqueEntityId } from "@/core/entities/value-objects/unique-entity-id";
+import { ResourceNotFoundError } from "@/core/errors/resource-not-found-error";
 import { AnswerComment } from "../../enterprise/entities/answer-comment";
 import { AnswersCommentsRepository } from "../repositories/answers-comments-repository";
 import { AnswersRepository } from "../repositories/answers-repository";
-import { ResourceNotFoundError } from "./errors/resource-not-found-error";
 
 export interface CommentOnAnswerUseCaseInputParams {
   authorId: string;

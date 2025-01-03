@@ -11,7 +11,7 @@ describe("Send Notification Use Case", () => {
         sut = new SendNotificationUseCase(notificationRepository);
     });
 
-    it("should be able send a notification", async () => {
+    it("should be able read a notification", async () => {
         const result = await sut.handle({
             recipientId: "1",
             content: "content",

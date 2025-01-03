@@ -1,10 +1,10 @@
 import { UniqueEntityId } from "@/core/entities/value-objects/unique-entity-id";
+import { NotAllowedError } from "@/core/errors/not-allowed-error";
 import { makeAnswerAttachment } from "test/factories/make-answer-attachment";
 import { makeAnswer } from "test/factories/make-answers";
 import { InMemoryAnswerAttachmentsRepository } from "test/repositories/in-memory-answer-attachments-repository";
 import { InMemoryAnswersRepository } from "test/repositories/in-memory-answers-repository";
 import { EditAnswerUseCase } from "./edit-answer";
-import { NotAllowedError } from "./errors/not-allowed-error";
 
 let sut: EditAnswerUseCase;
 let answersRepository: InMemoryAnswersRepository;
